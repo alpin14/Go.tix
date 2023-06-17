@@ -19,6 +19,9 @@ import org.d3if3007.gotix.datastore.dataStore
 
 
 class MovieFragment : Fragment() {
+    private lateinit var binding: FragmentMovieBinding
+    private lateinit var myAdapter: MovieAdapter
+
     private val LayoutDataStore: DsSetting by lazy {
         DsSetting(requireContext().dataStore)
     }
@@ -26,8 +29,6 @@ class MovieFragment : Fragment() {
     private val viewModel: MovieViewModel by lazy {
         ViewModelProvider(this)[MovieViewModel::class.java]
     }
-    private lateinit var binding: FragmentMovieBinding
-    private lateinit var myAdapter: MovieAdapter
     private var isLinearLayout = true
 
     override fun onCreateView(
@@ -38,10 +39,7 @@ class MovieFragment : Fragment() {
         binding = FragmentMovieBinding.inflate(layoutInflater,container, false)
         myAdapter = MovieAdapter()
         with(binding.recyclerView) {
-            addItemDecoration(
-                DividerItemDecoration(context,
-                    RecyclerView.VERTICAL)
-            )
+            addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
             adapter = myAdapter
             setHasFixedSize(true)
         }
