@@ -29,4 +29,8 @@ object PosterApi{
     val service: PosterApiService by lazy {
         retrofit.create(PosterApiService::class.java)
     }
+
+    fun getPosterUrl(imageId: String): String{
+        return "$BASE_URL$imageId.jpg"
+    }
 }
