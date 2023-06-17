@@ -1,0 +1,37 @@
+package org.d3if3007.gotix.db
+
+import android.content.Context
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+
+@Database(entities = [GotixEntity::class], version = 1, exportSchema = false)
+abstract class GotixDb : RoomDatabase(){
+
+    abstract val dao: GotixDao
+
+    companion object{
+
+        @Volatile
+        private var INSTANCE: GotixDb? = null
+
+        fun getInstance(context: Context): GotixDb{
+            synchronized(this){
+                var instance = INSTANCE
+
+                if (instance == null){
+
+                    instance = Room.databaseBuilder(
+                        context.applicationContext,
+                        GotixDb::class.java,
+                        "Gotix.db"
+                    )
+                        .fallbackToDestructiveMigration()
+                        .build()
+                    INSTANCE = instance
+                }
+                return instance
+            }
+        }
+    }
+}

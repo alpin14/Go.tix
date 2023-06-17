@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">Gotix</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="orang">Untuk Berapa Orang?</string>
+    <string name="hitung">Hitung</string>
+    <string name="jam_invalid">Jumlah Orang Tidak Boleh Kosong.</string>
+    <string name="bayar">Total Yang harus Anda Bayarkan Adalah : Rp.</string>
+    <string-array name="array_movie">
+        <item><b>Pilih Film</b></item>
+        <item>Black Clover</item>
+        <item>Cars 3</item>
+        <item>Fast 9: Furious Saga</item>
+        <item>John Wick 3: Parabellum</item>
+        <item>Mission Impossible: Dead Reckoning</item>
+        <item>The Amazing Spiderman</item>
+        <item>Terminator: Genisys</item>
+        <item>Titanic</item>
+        <item>Venom</item>
+        <item>White House Down</item>
+    </string-array>
+
+    <string name="harga_x"><b>Total Harga Tiket : Rp. %1$d</b></string>
+    <string name="tentang_aplikasi">Tentang Aplikasi</string>
+    <string name="copyright">Go.Tix adalah aplikasi pembelian tiket bioskop berbasis android. Aplikasi ini dibuat agar pengguna bisa membeli tiket tanpa harus mengantri lama di bioskop karena hanya perlu melakukan pembayaran dengan menunjukkan bukti booking pada aplikasi kepada kasir, terdapat beberapa fitur seperti menghitung harga tiket, melihat riwayat pembelian dan membagikan informasi pembelian.\n© 2023 Alpin Yuda.\nAll rights reserved.</string>
+
+    <string name="bagikan">Bagikan</string>
+    <string name="tmplt_share">%1s</string>
+    <string name="belum_ada_data">Belum ada data</string>
+    <string name="history">History</string>
+    <string name="kuota_x">Kuota : %1$s Orang</string>
+    <string name="film_x">Film : %1$s</string>
+    <string name="total_x">Total Harga : %1$s</string>
+
+    <string name="konfirmasi_hapus">Hapus riwayat pembelian?</string>
+    <string name="hapus">Hapus</string>
+    <string name="batal">Batal</string>
+    <string name="movie">Daftar Film</string>
+    <string name="switch_layout">Split Daftar</string>
+
+    <string name="btn_dlt">Hapus</string>
+</resources>
