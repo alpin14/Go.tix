@@ -79,6 +79,8 @@ class MovieFragment : Fragment() {
         viewModel.getStatus().observe(viewLifecycleOwner) {
             updateProgres(it)
         }
+
+        viewModel.scheduleUpdater(requireActivity().application)
     }
 
     private fun updateProgres(status: ApiStatus?) {
