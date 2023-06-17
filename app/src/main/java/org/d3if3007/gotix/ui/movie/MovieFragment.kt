@@ -1,7 +1,11 @@
 package org.d3if3007.gotix.ui.movie
 
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.*
+import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -12,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
+import org.d3if3007.gotix.MainActivity
 import org.d3if3007.gotix.R
 import org.d3if3007.gotix.databinding.FragmentMovieBinding
 import org.d3if3007.gotix.datastore.DsSetting
@@ -91,6 +96,11 @@ class MovieFragment : Fragment() {
 
             ApiStatus.SUCCES -> {
                 binding.progresBar.visibility = View.GONE
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    requestNotificationPermission()
+                }
+
             }
 
             ApiStatus.FAILED -> {
@@ -111,12 +121,27 @@ class MovieFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_switch_layout){
+        if (item.itemId == R.id.action_switch_layout) {
             lifecycleScope.launch {
                 LayoutDataStore.saveLayout(!isLinearLayout, requireContext())
             }
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun requestNotificationPermission() {
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                android.Manifest.permission.POST_NOTIFICATIONS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
+                MainActivity.PERMISSION_REQUEST_CODE
+            )
+        }
     }
 }
