@@ -40,4 +40,5 @@
     <string name="switch_layout">Split Daftar</string>
 
     <string name="btn_dlt">Hapus</string>
+    <string name="koneksi_error">Koneksi Error</string>
 </resources>

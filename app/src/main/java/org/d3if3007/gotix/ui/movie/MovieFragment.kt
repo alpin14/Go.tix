@@ -16,6 +16,7 @@ import org.d3if3007.gotix.R
 import org.d3if3007.gotix.databinding.FragmentMovieBinding
 import org.d3if3007.gotix.datastore.DsSetting
 import org.d3if3007.gotix.datastore.dataStore
+import org.d3if3007.gotix.network.ApiStatus
 
 
 class MovieFragment : Fragment() {
@@ -36,7 +37,7 @@ class MovieFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMovieBinding.inflate(layoutInflater,container, false)
+        binding = FragmentMovieBinding.inflate(layoutInflater, container, false)
         myAdapter = MovieAdapter()
         with(binding.recyclerView) {
             addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
@@ -46,13 +47,15 @@ class MovieFragment : Fragment() {
         setHasOptionsMenu(true)
         return binding.root
     }
-    private fun setLayout(){
+
+    private fun setLayout() {
         binding.recyclerView.layoutManager = if (isLinearLayout)
             LinearLayoutManager(context)
         else
-            GridLayoutManager(context,2)
+            GridLayoutManager(context, 2)
     }
-    private fun setIcon(menuItem: MenuItem){
+
+    private fun setIcon(menuItem: MenuItem) {
         val iconId = if (isLinearLayout)
             R.drawable.baseline_grid_view_24
         else
@@ -63,14 +66,38 @@ class MovieFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        LayoutDataStore.preferenceFlow.asLiveData().observe(viewLifecycleOwner){
+        LayoutDataStore.preferenceFlow.asLiveData().observe(viewLifecycleOwner) {
             isLinearLayout = it
             setLayout()
             activity?.invalidateOptionsMenu()
         }
 
-        viewModel.getData().observe(viewLifecycleOwner){
+        viewModel.getData().observe(viewLifecycleOwner) {
             myAdapter.updateData(it)
+        }
+
+        viewModel.getStatus().observe(viewLifecycleOwner) {
+            updateProgres(it)
+        }
+    }
+
+    private fun updateProgres(status: ApiStatus?) {
+        when (status) {
+            ApiStatus.LOADING -> {
+                binding.progresBar.visibility = View.VISIBLE
+            }
+
+            ApiStatus.SUCCES -> {
+                binding.progresBar.visibility = View.GONE
+            }
+
+            ApiStatus.FAILED -> {
+                binding.progresBar.visibility = View.GONE
+                binding.networkError.visibility = View.VISIBLE
+            }
+            else -> {
+                0
+            }
         }
     }
 
